@@ -1,0 +1,35 @@
+{
+  "data": {
+    "businessuss": [
+      {
+        "path": "physicianInformation",
+        "title": "医师信息字典"
+      },
+      {
+        "path": "medicalInstitution",
+        "title": "医疗机构信息字典"
+      },
+      {
+        "path": "departments",
+        "title": "医疗机构科室字典"
+      },
+      {
+        "path": "guardianInstitution",
+        "title": "卫监机构信息字典"
+      },
+      {
+        "path": "thirdService",
+        "title": "第三方卫生服务机构信息字典"
+      }
+    ],
+    "public": [
+      {
+        "path": "publicInformation",
+        "title": "公共信息字典"
+      }
+
+    ]
+  }
+
+}
+
