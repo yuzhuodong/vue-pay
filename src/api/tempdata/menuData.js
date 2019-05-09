@@ -34,7 +34,7 @@ const menus = [
       path: 'invoiceDetails'
     },
     {
-      itemCode: '0104',
+      itemCode: '0105',
       itemName: '',
       icon: '',
       title: '已开发票明',
