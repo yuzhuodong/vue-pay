@@ -1,0 +1,28 @@
+[
+  {
+    "name": "node",
+    "value": 10,
+    "children": [
+      {
+        "name": "流行性感冒",
+        "value": 6
+      },
+      {
+        "name": "流行性感冒",
+        "value": 4
+      },
+      {
+        "name": "流行性感冒",
+        "value": 3
+      },
+      {
+        "name": "流行性感冒",
+        "value": 3
+      },
+      {
+        "name": "流行性感冒",
+        "value": 2
+      }
+    ]
+  }
+]
