@@ -65,6 +65,10 @@
               self.tableData = data.data.dataInfo
               self.totalCount = data.data.pageInfo.totalCount
               this.loading2 = false
+              if (data.data.pageInfo.pageNum > data.data.pageInfo.totalPageNum) {
+                self.pageNum = data.data.pageInfo.totalPageNum
+                self.getWhiteList()
+              }
             } else {
               self.$message.warn(data.message)
             }
@@ -76,7 +80,6 @@
       },
       deleteWhiteList: function (row) {
         var ids = row.id
-        console.info(444, row.id)
         this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',

@@ -8,6 +8,8 @@ import invoicedDetails from '../invoicedDetails/invoicedDetails'
 import invoiceDetail from '../invoiceDetail/invoiceDetail'
 import invoiceReport from '../invoiceReport/invoiceReport'
 import basicInformation from '../basicInformation/basicInformation'
+import refundDetail from '../refundDetail/refundDetail'
+import merchantInformation from '../merchant/merchant'
 export {
   transactionDetail,
   role,
@@ -18,5 +20,7 @@ export {
   invoicedDetails,
   invoiceDetail,
   invoiceReport,
-  basicInformation
+  basicInformation,
+  refundDetail,
+  merchantInformation
 }

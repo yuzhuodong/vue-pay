@@ -17,8 +17,20 @@ const routes = [
     redirect: '/login'
   },
   {
+    path: '/video',
+    component: resolve => require(['@/views/video.vue'], resolve)
+  },
+  {
     path: '/login',
     component: resolve => require(['@/views/login.vue'], resolve)
+  },
+  {
+    path: '/personRegister',
+    component: resolve => require(['@/views/personRegister.vue'], resolve)
+  },
+  {
+    path: '/merchantRegister',
+    component: resolve => require(['@/views/merchantRegister.vue'], resolve)
   },
   {
     path: '/home',

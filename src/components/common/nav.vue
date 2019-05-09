@@ -13,7 +13,7 @@
       <sidebar-item :routes="permission_routers"></sidebar-item>
     </el-menu>
     <div style="width: 60px;height: 60px; position: absolute;bottom: 20px;" v-on:click="telescopic" >
-      <img  :src="imgUrl"  height="60" width="60"/>
+      <img  :src="imgUrl"  height="50" width="50"/>
     </div>
   </div>
 
@@ -83,7 +83,6 @@
         let param = {}
         param.userName = userName
         menu.getMenuByUserName(param).then(data => {
-          console.info(888, data.data.dataInfo.children)
           self.permission_routers = data.data.dataInfo.children
           self.saveMenus(data.data.dataInfo.children)
         })

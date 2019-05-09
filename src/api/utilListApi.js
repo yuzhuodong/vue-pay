@@ -1,10 +1,9 @@
-import axios from '@/utils/myaxios'
+import {smsService} from '@/utils/loginaxios'
 import qs from 'qs'
-import {commUrl} from '@/env'
 
 const getSms = (getparam) => {
   return new Promise((resolve, reject) => {
-    axios.post(commUrl + '/sms/send_code?' + qs.stringify(getparam))
+    smsService.post('/sms/send_code?' + qs.stringify(getparam))
       .then(response => {
         resolve(response)
       })

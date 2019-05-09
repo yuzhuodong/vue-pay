@@ -24,7 +24,7 @@
           </el-select>
         </el-form-item>
         <el-form-item label="清单标志" :label-width="formLabelWidth" class="form-item" prop="qdbz" style="min-width: 400px;width: 45%">
-          <el-select v-model="form.qdbz" placeholder="请选择作废标志" style="width: 100%">
+          <el-select v-model="form.qdbz" placeholder="请选择清单标志" style="width: 100%">
             <el-option label="是" value="是"></el-option>
             <el-option label="否" value="否"></el-option>
           </el-select>
@@ -90,16 +90,16 @@
             { required: true, message: '请输入发票号码', trigger: 'blur' }
           ],
           kprq: [
-            { required: true, message: '请输入开票日期', trigger: 'blur' }
+            { required: true, message: '请输入开票日期', trigger: 'change' }
           ],
           spmc: [
             { required: true, message: '请输入主要商品名称', trigger: 'blur' }
           ],
           zfbz: [
-            { required: true, message: '请选择作废标志', trigger: 'blur' }
+            { required: true, message: '请选择作废标志', trigger: 'change' }
           ],
           qdbz: [
-            { required: true, message: '请选择清单标志', trigger: 'blur' }
+            { required: true, message: '请选择清单标志', trigger: 'change' }
           ],
           xfmc: [
             { required: true, message: '请输入销方名称', trigger: 'blur' }

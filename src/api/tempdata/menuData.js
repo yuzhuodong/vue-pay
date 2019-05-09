@@ -16,11 +16,18 @@ const menus = [
       itemCode: '0102',
       itemName: '',
       icon: '',
+      title: '退款明细',
+      path: 'refundDetail'
+    },
+    {
+      itemCode: '0103',
+      itemName: '',
+      icon: '',
       title: '账单下载',
       path: 'billDownload'
     },
     {
-      itemCode: '0103',
+      itemCode: '0104',
       itemName: '',
       icon: '',
       title: '发票明细',
@@ -34,7 +41,7 @@ const menus = [
       path: 'invoicedDetails'
     },
     {
-      itemCode: '0105',
+      itemCode: '0106',
       itemName: '',
       icon: '',
       title: '发票报表',
@@ -86,18 +93,26 @@ const menus = [
       itemCode: '0301',
       itemName: '',
       icon: '',
-      title: '基本资料',
+      title: '基本信息',
       path: 'basicInformation'
+    },
+    {
+      itemCode: '0302',
+      itemName: '',
+      icon: '',
+      title: '商户信息',
+      path: 'merchant'
     }]
   }
 ]
-const defaultMenu = [{
-  itemCode: '0101',
-  itemName: '',
-  icon: 'el-icon-setting',
-  path: 'transactionDetail',
-  title: '交易明细'
-}]
+const defaultMenu = [
+  {
+    itemCode: '0301',
+    itemName: '',
+    icon: '',
+    path: 'basicInformation',
+    title: '基本信息'
+  }]
 export {
   menus, defaultMenu
 }

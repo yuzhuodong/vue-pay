@@ -43,13 +43,13 @@
         },
         rules: {
           name: [
-            {required: true, message: '请输入用户姓名'}
+            {required: true, message: '请输入用户姓名', trigger: 'blur'}
           ],
           mobileNum: [
-            {required: true, message: '请输入手机号码'}
+            {required: true, message: '请输入手机号码', trigger: 'blur'}
           ],
           idNo: [
-            {required: true, message: '请输入身份证号'}
+            {required: true, message: '请输入身份证号', trigger: 'blur'}
           ]
         }
       }

@@ -1,23 +1,23 @@
 <template>
-  <div style="height: 100%;position: relative;overflow:scroll;">
+  <div style="min-height: 920px;position: relative">
     <div class="header">
-      <img src="../assets/img/title-logo.png" height="37" width="378"/>
+      <div style="margin-left: 10%;margin-top: 20px">
+        <img src="../assets/img/title-logo.png" height="37" width="378"/>
+      </div>
     </div>
     <div class="middle">
       <div class="main-content">
         <div class="left-img">
-          <img src="../assets/img/loginImg.png" height="410" width="630"/>
+          <img src="../assets/img/img5.png" height="410" width="550"/>
         </div>
         <div class="right">
           <div class="nav_tabs_panel">
             <div id="nav-tabs" class="nav_tabs">
-              <a class="navtab-link" v-bind:class="{'active': login}" href="javascript:void(0);" @click="showLoginForm">登录</a>
-              <span class="line"></span>
-              <a class="navtab-link" v-bind:class="{'active': register}" href="javascript:void(0);" @click="showRegisterForm">注册</a>
+              <a class="navtab-link">账号登录</a>
             </div>
           </div>
           <div class="formArea">
-            <div v-show="login">
+            <div>
               <el-form class="loginForm" status-icon :rules="loginFormRules" ref="loginForm" :model="loginForm" label-width="0">
                 <el-form-item prop="userName">
                   <el-input  @keyup.enter.native="userLogin" v-model="loginForm.userName" auto-complete="off" placeholder="请输入您的手机号码">
@@ -31,38 +31,9 @@
                   </el-input>
                 </el-form-item>
                 <el-checkbox v-model="checked">记住账号</el-checkbox>
+                <a class="registerLink" @click="dialogVisible = true">立即注册</a>
                 <el-form-item>
                   <el-button type="primary"  @click.native.prevent="userLogin" class="login-submit" >登录</el-button>
-                </el-form-item>
-              </el-form>
-            </div>
-            <div v-show="register">
-              <el-form class="registerForm" status-icon :rules="registerFormRules" ref="registerForm" :model="registerForm" label-width="0">
-                <el-form-item prop="mobileNum">
-                  <el-input type="text" v-model="registerForm.mobileNum" placeholder="请输入您的手机号码">
-                  </el-input>
-                </el-form-item>
-                <el-form-item prop="code">
-                  <el-input type="text" v-model="registerForm.code" placeholder="请输入短信验证码">
-                    <template slot="append">
-                      <span v-show="show" @click="refreshCode">获取验证码</span>
-                      <span v-show="!show" class="auth_text">
-                  <span style="color: #2d8cf0;">{{count}} </span> 秒后重新发送</span>
-                    </template>
-                  </el-input>
-                </el-form-item>
-                <el-form-item prop="password">
-                  <el-input :type="passwordType" v-model="registerForm.password" placeholder="请设置您的登录密码" class="password">
-                    <i class="el-icon-view el-input__icon" slot="suffix" @click="showPassword"></i>
-                  </el-input>
-                </el-form-item>
-                <el-form-item prop="confirmPassword">
-                  <el-input :type="passwordType" v-model="registerForm.confirmPassword" placeholder="再次确认登录密码" class="confirmPassword">
-                    <i class="el-icon-view el-input__icon" slot="suffix" @click="showPassword"></i>
-                  </el-input>
-                </el-form-item>
-                <el-form-item>
-                  <el-button type="primary"  class="login-submit" @click="registerUser">注册</el-button>
                 </el-form-item>
               </el-form>
             </div>
@@ -70,10 +41,39 @@
         </div>
       </div>
     </div>
+    <el-dialog title="请选择您的身份" :visible.sync="dialogVisible" style="width: 1200px;margin: 0 auto;">
+      <div class="innerDiv">
+        <div class="personDiv" @click="personRegister">
+          <div class="imgDiv">
+            <img src="../assets/img/img1.png"/>
+          </div>
+          <div class="imgDiv">
+            <p class="firstP">我是个人用户</p>
+            <p class="secondP">需要提供手机号</p>
+            <p class="secondP">身份证等有效信息</p>
+          </div>
+        </div>
+        <div class="merchant" @click="merchantRegister">
+          <div class="imgDiv">
+            <img src="../assets/img/img2.png"/>
+          </div>
+          <div class="imgDiv">
+            <p class="firstP">我是商户用户</p>
+            <p class="secondP">需要额外提供</p>
+            <p class="secondP">支付宝、微信等信息</p>
+          </div>
+        </div>
+      </div>
+    </el-dialog>
+    <div class="footer">
+      <div class="footerDiv">
+        版权所有：江苏鑫亿软件股份有限公司   Copyright @ 江苏鑫亿软件股份有限公司 All rights reservednbsp
+      </div>
+    </div>
   </div>
 </template>
 <script>
-import { user, getSms, login } from '@/api/getData'
+import { login } from '@/api/getData'
 import { mapMutations } from 'vuex'
 export default{
   data () {
@@ -91,29 +91,10 @@ export default{
         callback()
       }
     }
-    const validateMobileNum = (rule, value, callback) => {
-      const reg = /^1(?:3\d|4[4-9]|5[0-35-9]|6[67]|7[013-8]|8\d|9\d)\d{8}$/
-      if (!reg.test(value)) {
-        callback(new Error('请输入正确的手机号码'))
-      } else {
-        callback()
-      }
-    }
-    const validateCode = (rule, value, callback) => {
-      if (value.length !== 4) {
-        callback(new Error('请输入4位数的验证码'))
-      } else {
-        callback()
-      }
-    }
     return {
-      login: true,
-      register: false,
       checked: false,
-      code: '',
-      count: '',
-      show: true,
       passwordType: 'password',
+      dialogVisible: false,
       loginForm: {
         userName: '',
         password: ''
@@ -126,32 +107,6 @@ export default{
           { required: true, message: '请输入密码', trigger: 'blur', validator: checkPass },
           { min: 6, message: '密码长度最少为6位', trigger: 'blur' }
         ]
-      },
-      registerForm: {
-        mobileNum: '',
-        code: '',
-        password: '',
-        confirmPassword: ''
-      },
-      registerFormRules: {
-        mobileNum: [
-          {
-            required: true,
-            validator: validateMobileNum,
-            trigger: 'blur'
-          }
-        ],
-        password: [
-          { required: true, validator: checkPass, trigger: 'blur' },
-          { min: 6, message: '密码长度最少为6位', trigger: 'blur' }
-        ],
-        confirmPassword: [
-          { required: true, message: '请再次输入密码', trigger: 'blur' },
-          { min: 6, message: '密码长度最少为6位', trigger: 'blur' }
-        ],
-        code: [
-          { required: true, validator: validateCode, trigger: 'blur' }
-        ]
       }
     }
   },
@@ -160,21 +115,13 @@ export default{
   },
   methods: {
     ...mapMutations(['saveUser', 'saveToken']),
+    // 密码是否可见
     showPassword () {
       this.passwordType === ''
         ? (this.passwordType = 'password')
         : (this.passwordType = '')
     },
-    showLoginForm: function () {
-      const self = this
-      self.login = true
-      self.register = false
-    },
-    showRegisterForm: function () {
-      const self = this
-      self.login = false
-      self.register = true
-    },
+     // 登录
     userLogin () {
       const self = this
       if (self.checked === true) {
@@ -191,7 +138,6 @@ export default{
           param.grant_type = 'password'
           login.userLogin(param).then(data => {
             if (data.access_token !== undefined) {
-              console.info(44444, data.access_token)
               self.saveToken(data)
               this.$message({
                 message: '登录成功',
@@ -213,6 +159,7 @@ export default{
         }
       })
     },
+    // 记住密码
     setCookie (c_name, c_pwd, exdays) {
       var exdate = new Date() // 获取时间
       exdate.setTime(exdate.getTime() + 24 * 60 * 60 * 1000 * exdays) // 保存的天数
@@ -239,100 +186,82 @@ export default{
     clearCookie: function () {
       this.setCookie('', '', -1) // 修改2值都为空，天数为负1天就好了
     },
-    refreshCode () {
-      const self = this
-      var tel = self.registerForm.mobileNum
-      var reg = /^1(?:3\d|4[4-9]|5[0-35-9]|6[67]|7[013-8]|8\d|9\d)\d{8}$/
-      if (!reg.test(tel)) {
-        this.$message.error('请输入正确的手机号码')
-        return false
-      } else {
-        self.getAuthCode()
-        let param = {}
-        param.recNum = tel
-        getSms(param).then(data => {
-          if (data.code) {
-          } else {
-            self.$message.error(data.mes)
-          }
-        }).catch(e => {
-          self.$message.error('服务端出错')
-          console.error(e)
-        })
-      }
+    personRegister () {
+      this.$router.push({path: '/personRegister'})
     },
-    getAuthCode: function () {
-      const TIME_COUNT = 60
-      if (!this.timer) {
-        this.count = TIME_COUNT
-        this.show = false
-        this.timer = setInterval(() => {
-          if (this.count > 0 && this.count <= TIME_COUNT) {
-            this.count--
-          } else {
-            this.show = true
-            clearInterval(this.timer)
-            this.timer = null
-          }
-        }, 1000)
-      }
-    },
-    registerUser: function () {
-      const self = this
-      if (self.registerForm.password !== self.registerForm.confirmPassword) {
-        self.$message.error('两次密码不同')
-        return false
-      } else {
-        self.$refs['registerForm'].validate(valid => {
-          if (valid) {
-            let param = {}
-            param.mobileNum = self.registerForm.mobileNum
-            param.password = self.registerForm.password
-            param.code = self.registerForm.code
-            user.saveUser(param)
-              .then(data => {
-                if (data.code === 'SUCCESS') {
-                  this.$message({
-                    type: 'success',
-                    message: '注册成功!'
-                  })
-                  self.login = true
-                  self.register = false
-                } else {
-                  self.$message.error(data.failMsg)
-                }
-              })
-              .catch(e => {
-                self.$message.error('服务端出错')
-                console.error(e)
-              })
-          } else {
-            return false
-          }
-        })
-      }
+    merchantRegister () {
+      this.$router.push({path: '/merchantRegister'})
     }
   }
 }
 
 </script>
 <style rel="stylesheet/scss" lang="scss" scoped>
+  /deep/  .el-dialog__header {
+    padding: 20px 20px 10px;
+    text-align: center;
+    color: #4d7ab3;
+    border-bottom: 2px solid #4d7ab3;
+  }
+  /deep/ .el-dialog__title{
+    color: #4d7ab3;
+    font-weight: bold;
+    font-size: 20px;
+  }
+  .innerDiv{
+    height: 220px;
+    padding-bottom: 30px;
+  }
+  .personDiv{
+    float: left;
+    margin-left: 40px;
+    background-color: rgb(250, 236, 236);
+    width: 180px;
+    height: 220px;
+    box-shadow: darkgrey 5px 5px 20px 0px;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+  .merchant{
+    float: right;
+    margin-right: 40px;
+    background-color: #ebf1f9;
+    width: 180px;
+    height: 220px;
+    box-shadow: darkgrey 5px 5px 20px 0px;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+  .imgDiv{
+    text-align: center;
+    margin-top: 10px;
+  }
+  .firstP{
+    font-size: 15px;
+    color: #410909;
+    font-weight: bold;
+  }
+  .secondP{
+    font-size: 10px;
+    color: #b68282;
+    font-weight: bold;
+  }
   .header{
-    margin-top: 50px;
-    margin-left: 5%;
+    height: 80px;
+    width: 100%;
+    padding: 10px 0px;
   }
   .middle{
     width: 100%;
-    min-width: 1200px;
+    min-width: 1500px;
     background-image: url('~@/assets/img/login-bj.png');;
     height: 600px;
     background-size: 100% 100%;
-    margin-top: 50px;
+   // margin-top: 50px;
   }
   .main-content{
-    width: 1200px;
+    width: 1500px;
     height: 600px;
-    margin-top: 20px;
     margin-right: auto;
     margin-left: auto;
   }
@@ -345,12 +274,12 @@ export default{
   }
   .right{
     display: inline-block;
-    width: 380px;
-    height: 430px;
+    width: 360px;
+    height: 410px;
     background-color: white;
     border-radius: 10px;
     margin-top: 68px;
-    margin-left: 170px;
+    float: right;
   }
   .nav_tabs_panel {
     display: block;
@@ -358,25 +287,19 @@ export default{
     height: 80px;
   }
   .nav_tabs {
-    padding: 24px 0;
+    border-bottom: 2px solid #e0e0e0;
+    padding: 18px 0;
     text-align: center;
     font-size: 24px;
-    color: #e0e0e0;
   }
-  .line{
-    width: 1px;
-    height: 24px;
-    margin: 0 35px 0 42px;
-    border: 1px solid #e0e0e0;
+  .navtab-link{
+    color: #f56600;
   }
   a{
     color: #666;
   }
-  .nav_tabs a.active {
-    color: #f56600;
-  }
   .formArea{
-    width: 340px;
+    width: 300px;
     margin: 0 auto;
   }
   .login-submit {
@@ -409,6 +332,25 @@ export default{
     .el-checkbox {
       margin-bottom: 25px;
     }
+  }
+  .registerLink {
+   float: right;
+    line-height: 19px;
+    font-size: 14px;
+    color: #2867bc;
+    cursor: pointer;
+    font-weight: bold
+  }
+  .footer{
+    width: 100%;
+    height: 60px;
+    position: absolute;
+    bottom: 0;
+  }
+  .footerDiv{
+    text-align: center;
+    font-size: 15px;
+    color: #909090
   }
   .icon-yonghu {
     background: url("~@/assets/img/userIcon.png") no-repeat center;

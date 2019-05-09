@@ -45,6 +45,7 @@
       this.getUserInfoByUserName()
     },
     methods: {
+      // 根据用户名获取用户信息
       getUserInfoByUserName () {
         const self = this
         let param = {}
@@ -62,6 +63,7 @@
             console.error(e)
           })
       },
+      // 提交表单
       submitForm: function () {
         const self = this
         let param = {}

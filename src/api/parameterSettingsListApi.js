@@ -1,10 +1,9 @@
 import axios from '@/utils/myaxios'
 import qs from 'qs'
-import {commUrl} from '@/env'
 
 const getParameter = (getparam) => {
   return new Promise((resolve, reject) => {
-    axios.get(commUrl + '/appParam', {
+    axios.get('/appParam', {
       params: getparam
     })
       .then(response => {
@@ -19,7 +18,7 @@ const getParameter = (getparam) => {
 // 按照id查询参数
 const getParameterById = (getparam) => {
   return new Promise((resolve, reject) => {
-    axios.get(commUrl + '/appParam/' + getparam.id + '', {
+    axios.get('/appParam/' + getparam.id + '', {
       params: getparam
     })
       .then(response => {
@@ -34,7 +33,7 @@ const getParameterById = (getparam) => {
 // 按照code查询参数
 const getParameterByCode = (getparam) => {
   return new Promise((resolve, reject) => {
-    axios.get(commUrl + '/appParam/code/' + getparam.code + '', {
+    axios.get('/appParam/code/' + getparam.code + '', {
       params: getparam
     })
       .then(response => {
@@ -48,7 +47,7 @@ const getParameterByCode = (getparam) => {
 
 const editParameter = (editparam) => {
   return new Promise((resolve, reject) => {
-    axios.put(commUrl + '/appParam', qs.stringify(editparam))
+    axios.put('/appParam', qs.stringify(editparam))
       .then(respose => {
         resolve(respose)
       })

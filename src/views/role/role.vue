@@ -30,7 +30,9 @@
           highlight-current
           emptyText=""
           @check="checkChange"
-          :props="defaultProps">
+          :props="defaultProps"
+          :check-strictly="noRelative"
+        >
         </el-tree>
       </div>
     </div>
@@ -70,6 +72,10 @@
               }
               self.loading2 = false
               self.$refs.table.setCurrentRow(self.tableData[0])
+              if (data.data.pageInfo.pageNum > data.data.pageInfo.totalPageNum) {
+                self.pageNum = data.data.pageInfo.totalPageNum
+                self.getRoleList()
+              }
             } else {
               self.$message.error(data.failMsg)
             }
@@ -206,31 +212,52 @@
         const self = this
         let param = {}
         let menu = ''
-        // let keys = value.checkedKeys.concat(value.halfCheckedKeys)
-        let keys = value.checkedKeys
+        let keys = value.checkedKeys.concat(value.halfCheckedKeys)
         for (var index in keys) {
           menu = keys[index] + ',' + menu
         }
-        menu = menu.substring(0, menu.length - 1)
-        param.roleCode = self.role.itemCode
-        param.menuCode = menu
-        self.deleteMenuTreesByRoleCode(self.role.itemCode)
-        role.saveRoleMenu(param).then(data => {
-          if (data.code === 'SUCCESS') {
-            self.dialogVisible = false
-            this.$message({
-              message: '菜单分配成功',
-              type: 'success',
-              duration: 1500
-            })
-          } else {
-            self.$message.error(data.failMsg)
-          }
-        })
-          .catch(e => {
-            self.$message.error('服务端出错')
-            console.error(e)
+        if (menu.length === 0) {
+          param.roleCode = self.role.itemCode
+          param.menuCode = ''
+          self.deleteMenuTreesByRoleCode(self.role.itemCode)
+          role.saveRoleMenu(param).then(data => {
+            if (data.code === 'SUCCESS') {
+              self.dialogVisible = false
+              this.$message({
+                message: '菜单分配成功',
+                type: 'success',
+                duration: 1500
+              })
+            } else {
+              self.$message.error(data.failMsg)
+            }
           })
+            .catch(e => {
+              self.$message.error('服务端出错')
+              console.error(e)
+            })
+        } else {
+          menu = menu.substring(0, menu.length - 1)
+          param.roleCode = self.role.itemCode
+          param.menuCode = menu
+          self.deleteMenuTreesByRoleCode(self.role.itemCode)
+          role.saveRoleMenu(param).then(data => {
+            if (data.code === 'SUCCESS') {
+              self.dialogVisible = false
+              this.$message({
+                message: '菜单分配成功',
+                type: 'success',
+                duration: 1500
+              })
+            } else {
+              self.$message.error(data.failMsg)
+            }
+          })
+            .catch(e => {
+              self.$message.error('服务端出错')
+              console.error(e)
+            })
+        }
       },
       currentRow: function (row) {
         this.user = row
@@ -246,6 +273,7 @@
     },
     data () {
       return {
+        noRelative: true,
         dialogVisible: false,
         menu: [],
         data1: [],

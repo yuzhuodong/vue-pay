@@ -70,7 +70,6 @@
         this.getParameter()
       },
       selsChange (sels) {
-        console.info(333, sels)
         this.sels = sels
       },
       search: function () {

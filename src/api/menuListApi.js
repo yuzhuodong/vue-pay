@@ -1,11 +1,10 @@
 import axios from '@/utils/myaxios'
 import qs from 'qs'
-import {commUrl} from '@/env'
 
 // 获取菜单树
 const getMenuTrees = (getparam) => {
   return new Promise((resolve, reject) => {
-    axios.get(commUrl + '/menutrees/tree?' + qs.stringify(getparam))
+    axios.get('/menutrees/tree?' + qs.stringify(getparam))
       .then(response => {
         resolve(response)
       })
@@ -18,7 +17,7 @@ const getMenuTrees = (getparam) => {
 // 根据角色获取菜单
 const getMenuTreesByRoleCode = (getparam) => {
   return new Promise((resolve, reject) => {
-    axios.get(commUrl + '/role-menu-rels/menu-of/' + getparam.roleCode, qs.stringify(getparam))
+    axios.get('/role-menu-rels/menu-of/' + getparam.roleCode, qs.stringify(getparam))
       .then(respose => {
         resolve(respose)
       })
@@ -31,7 +30,7 @@ const getMenuTreesByRoleCode = (getparam) => {
 // 根据角色删除菜单
 const deleteMenuTreesByRoleCode = (deleteparam) => {
   return new Promise((resolve, reject) => {
-    axios.delete(commUrl + '/role-menu-rels/roleCode/' + deleteparam.roleCode, qs.stringify(deleteparam))
+    axios.delete('/role-menu-rels/roleCode/' + deleteparam.roleCode, qs.stringify(deleteparam))
       .then(respose => {
         resolve(respose)
       })
@@ -43,7 +42,7 @@ const deleteMenuTreesByRoleCode = (deleteparam) => {
 
 const getMenuTreesByType = (getparam) => {
   return new Promise((resolve, reject) => {
-    axios.get(commUrl + '/menutrees/treeByType?' + qs.stringify(getparam))
+    axios.get('/menutrees/treeByType?' + qs.stringify(getparam))
       .then(response => {
         resolve(response)
       })
@@ -55,7 +54,7 @@ const getMenuTreesByType = (getparam) => {
 // 根据用户名查询菜单
 const getMenuByUserName = (getparam) => {
   return new Promise((resolve, reject) => {
-    axios.get(commUrl + '/menutrees/getMenuByUserName?' + qs.stringify(getparam))
+    axios.get('/menutrees/getMenuByUserName?' + qs.stringify(getparam))
       .then(response => {
         resolve(response)
       })

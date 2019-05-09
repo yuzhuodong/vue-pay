@@ -1,10 +1,9 @@
 import axios from '@/utils/myaxios'
-import {commUrl} from '@/env'
 import qs from 'qs'
 
 const getWhiteList = (getparam) => {
   return new Promise((resolve, reject) => {
-    axios.get(commUrl + '/whitelist', {
+    axios.get('/whitelist', {
       params: getparam
     })
       .then(response => {
@@ -17,7 +16,7 @@ const getWhiteList = (getparam) => {
 }
 const saveWhiteList = (postparam) => {
   return new Promise((resolve, reject) => {
-    axios.post(commUrl + '/whitelist', qs.stringify(postparam))
+    axios.post('/whitelist', qs.stringify(postparam))
       .then(response => {
         resolve(response)
       })
@@ -28,7 +27,7 @@ const saveWhiteList = (postparam) => {
 }
 const deleteWhiteList = (deleteparam) => {
   return new Promise((resolve, reject) => {
-    axios.delete(commUrl + '/whitelist', {
+    axios.delete('/whitelist', {
       params: deleteparam
     })
       .then(respose => {

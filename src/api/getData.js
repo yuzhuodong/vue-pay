@@ -10,6 +10,7 @@ import * as menuListApi from './menuListApi'
 import * as parameterSettingsListApi from './parameterSettingsListApi'
 import * as whiteListApi from './whiteListApi'
 import * as transactionDetailLitApi from './transactionDetailListApi'
+import * as refundDetailListApi from './refundDetailListApi'
 import * as invoiceDetailListApi from './invoiceDetailListApi'
 import * as invoicedDetailsListApi from './invoicedDetailsListApi'
 // 模仿 axios
@@ -39,6 +40,8 @@ var login = {
 
 var user = {
   saveUser: (param) => setPromise(),
+  saveMerchantMsg: (param) => setPromise(),
+  getMerchantMsg: (param) => setPromise(),
   getUser: (param) => setPromise(),
   getUserInfoByUserName: (param) => setPromise(),
   saveRoleByUserName: (param) => setPromise(),
@@ -48,7 +51,8 @@ var user = {
   getUserInfo: (param) => setPromise(),
   deleteRolesByUserId: (param) => setPromise(),
   deleteRolesByUserName: (param) => setPromise(),
-  editUser: (parm) => setPromise()
+  editUser: (parm) => setPromise(),
+  addRolesByUserName: (parm) => setPromise()
 }
 
 var role = {
@@ -78,6 +82,8 @@ var deleteWhiteList = (deleteparam) => whiteListApi.deleteWhiteList(deleteparam)
 
 var getTransactionDetail = (getparam) => transactionDetailLitApi.getTransactionDetail(getparam)
 
+var getRefundDetail = (getparam) => refundDetailListApi.getRefundDetail(getparam)
+
 var getInvoiceDetail = (getparam) => invoiceDetailListApi.getInvoiceDetail(getparam)
 var getUnDrawInvoiceDetail = (getparam) => invoiceDetailListApi.getUnDrawInvoiceDetail(getparam)
 
@@ -94,6 +100,8 @@ if (appInfo.demo) {
   // processLogin = login
   login.userLogin = loginApi.userLogin
   user.saveUser = userListApi.saveUser
+  user.saveMerchantMsg = userListApi.saveMerchantMsg
+  user.getMerchantMsg = userListApi.getMerchantMsg
   user.getUser = userListApi.getUser
   user.getUserInfoByUserName = userListApi.getUserInfoByUserName
   user.editUserStatus = userListApi.editUserStatus
@@ -104,6 +112,7 @@ if (appInfo.demo) {
   user.deleteRolesByUserId = userListApi.deleteRolesByUserId
   user.deleteRolesByUserName = userListApi.deleteRolesByUserName
   user.editUser = userListApi.editUser
+  user.addRolesByUserName = userListApi.addRolesByUserName
   role.editRole = roleListApi.editRole
   role.getRoleList = roleListApi.getRoleList
   role.saveRoleMenu = roleListApi.saveRoleMenu
@@ -131,6 +140,7 @@ export {
   saveWhiteList,
   deleteWhiteList,
   getTransactionDetail,
+  getRefundDetail,
   getInvoiceDetail,
   getUnDrawInvoiceDetail,
   getInvoicedDetails,

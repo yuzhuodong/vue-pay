@@ -51,10 +51,10 @@
             { required: true, message: '请输入购方税号', trigger: 'blur' }
           ],
           kprq: [
-            { required: true, message: '请输入开票日期', trigger: 'blur' }
+            { required: true, message: '请输入开票日期', trigger: 'change' }
           ],
           zfbz: [
-            { required: true, message: '请选择作废标志', trigger: 'blur' }
+            { required: true, message: '请选择作废标志', trigger: 'change' }
           ]
         }
       }

@@ -47,14 +47,17 @@
     mounted () {
     },
     methods: {
+      // 重置日
       clearDate: function () {
         this.billForm.date = ''
         this.time = this.billForm.month
       },
+      // 重置月
       clearMonth: function () {
         this.billForm.month = ''
         this.time = this.billForm.date
       },
+      // 提交
       submitForm (formName) {
         const billForm = this.billForm
         const type = this.billType

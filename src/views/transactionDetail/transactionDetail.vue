@@ -16,9 +16,9 @@
         </el-table-column>
         <el-table-column  prop="subject" label="订单标题" min-width="420" align="center">
         </el-table-column>
-        <el-table-column  prop="timestamp" label="订单生成时间" min-width="150" align="center">
+        <el-table-column  prop="timestamp" label="订单生成时间" min-width="180" align="center">
         </el-table-column>
-        <el-table-column  prop="gmtPayment" label="付款时间" min-width="150" align="center">
+        <el-table-column  prop="gmtPayment" label="付款时间" min-width="180" align="center">
         </el-table-column>
       </el-table>
     </el-main>
@@ -26,7 +26,6 @@
       <el-pagination background layout="prev, pager, next" :total=totalCount :page-size=pageSize @current-change="current_change">
       </el-pagination>
     </el-row>
-
   </el-container>
 </template>
 <script>
@@ -37,7 +36,6 @@
     },
     methods: {
       getTransactionDetail () {
-        console.info(8888, this.$store.getters.getToken.access_token)
         const self = this
         let param = {}
         param.pageSize = self.pageSize

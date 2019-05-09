@@ -18,7 +18,6 @@
               class="upload-demo"
               :action="a"
               :on-success="success"
-              :on-error="fail"
               list-type="picture"
               id="the">
               <el-button type="primary" icon="el-icon-upload">导入已开发票信息</el-button>
@@ -95,12 +94,14 @@
 
 <script>
   import invoiceDetailForm from './invoiceDetail-form'
+  import {baseUrl} from '@/env'
   import { getInvoiceDetail, getUnDrawInvoiceDetail } from '@/api/getData'
   export default {
     mounted () {
       this.getInvoiceDetail()
       this.getAllInvoiceDetail()
       this.getTime()
+      /* this.b = baseUrl + '/invoice/importExcel?access_token=' */
     },
     methods: {
       // 维护发票信息
@@ -110,8 +111,9 @@
       },
       // 查询所有发票信息
       getInvoiceDetail () {
-        this.c = this.$store.getters.getToken.access_token
-        this.a = this.b.concat(this.c)
+        /* this.c = this.$store.getters.getToken.access_token */
+        /* this.a = this.b.concat(this.c) */
+        this.a = baseUrl + '/invoice/importExcel?access_token=' + this.$store.getters.getToken.access_token + ''
         const self = this
         let param = {}
         param.pageSize = self.pageSize
@@ -139,7 +141,6 @@
           .then(data => {
             if (data.code) {
               self.allData = data.data.dataInfo
-              console.info(88888, self.allData)
               this.loading2 = false
             } else {
               self.$message.warn(data.message)
@@ -209,16 +210,19 @@
         this.time = y + '-' + m + '-' + d
       },
       // 导入成功后的事件
-      success () {
+      success (response, file, fileList) {
+        if (response.code === 'success') {
+          this.$message({
+            message: '导入成功',
+            type: 'success'
+          })
+        } else {
+          this.$message.error(response.exception)
+        }
         this.getInvoiceDetail()
-        this.$message({
-          message: '导入成功',
-          type: 'success'
-        })
       },
-      fail () {
-        this.getInvoiceDetail()
-        this.$message.error('导入失败')
+      change () {
+
       }
     },
     components: {
@@ -230,8 +234,8 @@
         tableData: [],
         time: '',
         a: '',
-        b: 'http://192.168.1.46:7500/sys/invoice/importExcel?access_token=',
-        c: '',
+       /* b: '','http://192.168.1.46:7500/sys/invoice/importExcel?access_token=',
+        c: '', */
         sels: [],
         allData: [],
         billData: {},

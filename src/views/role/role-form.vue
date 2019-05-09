@@ -34,7 +34,7 @@
         },
         rules: {
           itemName: [
-            {required: true, message: '请输入角色名称'}
+            {required: true, message: '请输入角色名称', trigger: 'blur'}
           ]
         }
       }
